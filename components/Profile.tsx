@@ -8,7 +8,7 @@ import axios from "axios";
 const Profile = () => {
     const {data:currentUser} = useCurrentUser();
     const {mutate:mutateFetchedUser} = useUser(currentUser?.id);
-    const [image, setimage] = useState('');
+    const [image, setimage] = useState(currentUser?.image);
     const [name, setName] = useState('');
     const [username,setUsername] = useState('');
     const [bio,setBio] = useState('');

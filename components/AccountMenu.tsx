@@ -21,7 +21,7 @@ const AccountMenu:React.FC<AccountMenuProps> =({visible})=>{
         <div className="border-[0.5px] rounded-md bg-white text-black w-56 absolute top-14 right-0 py-5 m-4 flex-col border-1 border-gray-800 flex">
             <div className="flex flex-col gap-3">
                 <div className="px-3 group/item flex flex-row items-center w-full">
-                    <Image width="80" height="80" objectFit="cover"
+                    <Image width="80" height="80" 
                     className="h-10 w-10 object-cover rounded-full"
                     src={user?.image? user.image : logo} alt="profileImage"/>
                     <p className="text-black ml-4 text-md cursor-default font-semibold">

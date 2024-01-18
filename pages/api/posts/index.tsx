@@ -3,7 +3,7 @@ import serverAuth from "@/lib/serverAuth";
 import prismadb from '@/lib/prismadb';
 
 export default  async function(req:NextApiRequest,res:NextApiResponse){
-    if(req.method!=='POST' && req.method!=='GET' && req.method!='DELETE'){
+    if(req.method!=='POST' && req.method!=='GET' && req.method!=='DELETE'){
         return res.status(405).end();
     }
     try{
@@ -63,36 +63,44 @@ export default  async function(req:NextApiRequest,res:NextApiResponse){
         }
         else if(req.method==='GET')
         {
-            const {userId} = req.query;
-            let posts;
+            try{
 
-            if(userId && typeof userId ==='string')
-            {
-                posts = await prismadb.post.findMany({
-                    where:{
-                        userId
-                    },
-                    include:{
-                        user:true,
-                        comments:true
-                    },
-                    orderBy:{
-                        createdAt:'desc'
-                    }
-                });
+                
+                const userId = req.query.userId as string;
+                let posts;
+
+                if(userId && typeof userId ==='string')
+                {
+                    posts = await prismadb.post.findMany({
+                        where:{
+                            userId
+                        },
+                        include:{
+                            user:true,
+                            comments:true
+                        },
+                        orderBy:{
+                            createdAt:'desc'
+                        }
+                    });
+                }
+                else{
+                    posts = await prismadb.post.findMany({
+                        include:{
+                            user:true,
+                            comments:true,
+                        },
+                        orderBy:{
+                            createdAt:'desc'
+                        }
+                    })
+                }
+                res.status(200).json(posts);
             }
-            else{
-                posts = await prismadb.post.findMany({
-                    include:{
-                        user:true,
-                        comments:true,
-                    },
-                    orderBy:{
-                        createdAt:'desc'
-                    }
-                })
+            catch(error) {
+                console.log("Error in loading posts :"+error);
+                res.status(400).end();
             }
-            res.status(200).json(posts);
         }
         
     }

@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Jockey+One&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html{
+  @apply bg-black md:bg-transparent
+}
+body{
+  @apply hero bg-no-repeat bg-fixed bg-center bg-fixed md:bg-cover w-screen md:overflow-hidden
+}
+.jockey-one-regular{
+  font-family: "Jockey One";
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 2.88px;
+}
+
+.hero{
+  background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2944&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+}

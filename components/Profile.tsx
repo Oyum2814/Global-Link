@@ -8,20 +8,20 @@ import axios from "axios";
 const Profile = () => {
     const {data:currentUser} = useCurrentUser();
     const {mutate:mutateFetchedUser} = useUser(currentUser?.id);
-    const [image, setimage] = useState(currentUser?.image);
+    const [image, setImage] = useState();
     const [name, setName] = useState('');
     const [username,setUsername] = useState('');
     const [bio,setBio] = useState('');
     const [isLoading,setIsLoading] = useState(false);
+
     useEffect(()=>{
-        setimage(currentUser?.image);
+        setImage(currentUser?.image);
         setName(currentUser?.name);
         setUsername(currentUser?.username);
         setBio(currentUser?.bio);
     },[
         currentUser?.name,
         currentUser?.image,
-        currentUser?.coverImage,
         currentUser?.username,
         currentUser?.bio
     ]);
@@ -58,7 +58,7 @@ const Profile = () => {
                     <ImageUpload
                     value={image}
                     disabled={isLoading}
-                    onChange={(image)=>setimage(image)} 
+                    onChange={(image)=>setImage(image)} 
                     label="Upload Profile Image"
                     />
                 </div>

@@ -1,8 +1,9 @@
 import { useCallback, useState } from 'react'
 import {useDropzone} from 'react-dropzone'
 import Image from 'next/image'
+import toast from 'react-hot-toast';
 interface ImageUploadProps{
-    onChange:(base64:string)=>void;
+    onChange:(base64:any)=>void;
     label:string;
     value?:string;
     disabled?:boolean;
@@ -19,13 +20,21 @@ const ImageUpload:React.FC<ImageUploadProps> = ({
 
     const handleDrop = useCallback((files:any)=>{
         const file = files[0];
-        const reader = new FileReader();
-        reader.onload = (event:any)=>{
-            setBase64(event.target.result);
-            handleChange(event.target.result);
-        };
-        reader.readAsDataURL(file);
-    },[handleChange]);
+        console.log(file.size);
+        if(file.size<=30000)
+        {
+            const reader = new FileReader();
+            reader.onload = (event:any)=>{
+                setBase64(event.target.result);
+                handleChange(event.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+        else{
+            toast.error('Incompatible Image. Try Again!');
+        }
+       
+    },[handleChange,toast]);
 
     const {getRootProps,getInputProps} = useDropzone({
         maxFiles:1,

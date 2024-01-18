@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 html{
-  @apply bg-black md:bg-transparent
+  @apply  bg-transparent
 }
 body{
   @apply hero bg-no-repeat bg-fixed bg-center bg-fixed md:bg-cover w-screen md:overflow-hidden

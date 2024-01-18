@@ -10,9 +10,9 @@ interface AccountMenuProps{
     visible?: boolean,
 }
 const AccountMenu:React.FC<AccountMenuProps> =({visible})=>{
-    if (!visible) return null;
     const {data:user} = useCurrentUser();
     const router = useRouter();
+    if (!visible) return null;
     const handleClick = (e:any) => {
         e.preventDefault()
         router.push('/profile')

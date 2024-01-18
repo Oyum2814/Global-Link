@@ -136,7 +136,7 @@ const Auth = ()=>{
                                 {variant==='login'?'Create Account':'Login'}
                             </span>
                 </p>
-                <div className="flex flex-col items-center gap-4 mt-8 justify-center">
+                {/* <div className="flex flex-col items-center gap-4 mt-8 justify-center">
                             <div onClick={(e)=>{
                                 e.preventDefault();
                                 signIn('google',{callbackUrl:'/'});
@@ -148,7 +148,7 @@ const Auth = ()=>{
                                 <FaGithub size={30}/>
                                 <div className="ml-3 font-bold">Continue with Github</div>
                             </div>
-                        </div>
+                        </div> */}
             </div>
             
         </div>

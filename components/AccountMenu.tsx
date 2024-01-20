@@ -6,6 +6,7 @@ import useCurrentUser from '@/hooks/useCurrentUser';
 import logo from '@/public/assets/logo.png';
 import Link from 'next/link'
 import { useRouter } from 'next/router';
+import { getFileById } from '@/pages/appwrite';
 interface AccountMenuProps{
     visible?: boolean,
 }
@@ -23,7 +24,7 @@ const AccountMenu:React.FC<AccountMenuProps> =({visible})=>{
                 <div className="px-3 group/item flex flex-row items-center w-full">
                     <Image width="80" height="80" 
                     className="h-10 w-10 object-cover rounded-full"
-                    src={user?.image? user.image : logo} alt="profileImage"/>
+                    src={user?.image? getFileById(user?.image) :logo} alt="profileImage"/>
                     <p className="text-black ml-4 text-md cursor-default font-semibold">
                         {user?.username}
                     </p>

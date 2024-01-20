@@ -1,3 +1,4 @@
+
 import { useCallback, useState } from 'react'
 import {useDropzone} from 'react-dropzone'
 import Image from 'next/image'
@@ -5,14 +6,13 @@ import toast from 'react-hot-toast';
 interface ImageUploadProps{
     onChange:(base64:any)=>void;
     label:string;
-    value?:string;
     disabled?:boolean;
 }
 
 const ImageUpload:React.FC<ImageUploadProps> = ({
-    onChange,label,value,disabled
+    onChange,label,disabled
     }) => {
-    const [base64, setBase64] = useState(value);
+    const [base64, setBase64] = useState<File | null>(null);
 
     const [compressedImages, setCompressedImages] = useState<File[]>([]);
 
@@ -25,20 +25,18 @@ const ImageUpload:React.FC<ImageUploadProps> = ({
         console.log("Current Size :"+file.size);
         if(file.size<=30000)
         {
-            const reader = new FileReader();
-            reader.onload = (event:any)=>{
-                setBase64(event.target.result);
-                handleChange(event.target.result);
-            };
-            reader.readAsDataURL(file);
+            setBase64(file);
+            handleChange(file);
         }
-        else if(file.size<300000){
+        else if(file.size<5000000000){
             try{
                 const { compressedFile, base64String } = await compressImage(file);
-                setBase64(base64String); // Update to base64 string, not object URL
-                handleChange(base64String);
-                console.log("Compressed Size : "+compressedFile.size);
-                console.log(base64String);
+                setBase64(file);
+                handleChange(file);
+                // setBase64(base64String); // Update to base64 string, not object URL
+                // handleChange(base64String);
+                // console.log("Compressed Size : "+compressedFile.size);
+                // console.log(base64String);
             }
             catch(error){
                 toast.error('Incompatible Image. Try Again!');
@@ -122,7 +120,7 @@ const ImageUpload:React.FC<ImageUploadProps> = ({
                 base64?(
                     <div className="flex items-center justify-center">
                         <Image
-                        src={base64}
+                        src={URL.createObjectURL(base64)}
                         height="300"
                         width="300"
                         alt="Uploaded Image"

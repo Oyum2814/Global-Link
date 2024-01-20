@@ -10,6 +10,7 @@ import useCurrentUser from '@/hooks/useCurrentUser';
 import { IoClose } from "react-icons/io5";
 import { IoGlobeOutline } from "react-icons/io5";
 import Link from 'next/link'
+import { getFileById } from '@/pages/appwrite';
 const TOP_OFFSET=66;
 
 const Navbar = ()=>{
@@ -75,7 +76,7 @@ const Navbar = ()=>{
                         <div className="w-10 h-10 rounded-full overflow-hidden">
                         <Image width="80" height="80"
                     className="h-10 w-10 object-cover rounded-full border-white border-[1px]"
-                    src={user?.image? user.image :logo} alt="profileImage"/>
+                    src={user?.image? getFileById(user?.image) :logo} alt="profileImage"/>
                         </div>
                         <BsChevronDown
                       

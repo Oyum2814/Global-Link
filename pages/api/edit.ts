@@ -9,11 +9,19 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse){
     }
     try{
         const {currentUser} = await serverAuth(req, res);
-        const {name, username, bio, image} = req.body;
+        const {name, username, bio, imageLink} = req.body;
         if(!name || !username){
             console.log(name+" "+username);
             throw new Error('Missing Fields ');
-
+        }
+        const existingUserData = await prismadb.user.findUnique({
+            where: {
+              id: currentUser.id,
+            },
+          });
+    
+        if (!existingUserData) {
+        throw new Error("User not found");
         }
         const updatedUser = await prismadb.user.update({
             where:{
@@ -23,7 +31,7 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse){
                 name,
                 username,
                 bio,
-                image
+                image:imageLink !== "" ? imageLink : existingUserData.image,
             }
         });
         return res.status(200).json(updatedUser);

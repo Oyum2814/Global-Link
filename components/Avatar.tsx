@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useCallback } from "react";
 import Image from "next/image";
 import logo from '@/public/assets/logo.png'
+import { getFileById } from "@/pages/appwrite";
 interface AvatarProps{
     userId:string;
     isLarge?:boolean;
@@ -34,7 +35,7 @@ const Avatar:React.FC<AvatarProps> = ({userId, isLarge, hasBorder})=>{
             sizes={"25"}
             alt="Avatar"
             onClick={onClick}
-            src={fetchedUser?.image || logo}
+            src={fetchedUser?.image? getFileById(fetchedUser?.image) : logo}
             />
         </div>
     );

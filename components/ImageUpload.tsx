@@ -3,14 +3,17 @@ import { useCallback, useState } from 'react'
 import {useDropzone} from 'react-dropzone'
 import Image from 'next/image'
 import toast from 'react-hot-toast';
+import { getFileById } from '@/pages/appwrite';
+
 interface ImageUploadProps{
     onChange:(base64:any)=>void;
     label:string;
     disabled?:boolean;
+    user?:any;
 }
 
 const ImageUpload:React.FC<ImageUploadProps> = ({
-    onChange,label,disabled
+    onChange,label,disabled,user
     }) => {
     const [base64, setBase64] = useState<File | null>(null);
 
@@ -108,7 +111,7 @@ const ImageUpload:React.FC<ImageUploadProps> = ({
             'image/png':[]
         },
     });
-
+    
     
     return ( 
         <div 
@@ -127,7 +130,13 @@ const ImageUpload:React.FC<ImageUploadProps> = ({
                         />
                     </div>
                 ):(
-                    <p className="text-white py-12 md:py-24">{label}</p>
+                    <div className="flex items-center justify-center">
+                        <Image  
+                        height="300"
+                        width="300"
+                        alt="Uploaded Image"
+                        src={user?.image? getFileById(user?.image):''} />
+                    </div>
                 )
             }
         </div>

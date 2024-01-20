@@ -78,6 +78,7 @@ const Profile = () => {
                         disabled={isLoading}
                         onChange={(image)=>setImage(image)} 
                         label="Upload Profile Image"
+                        user={currentUser}
                         />
                     </div>
                     <div className="md:w-[30%] my-4 flex flex-col justify-center items-center gap-y-8">

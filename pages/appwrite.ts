@@ -22,6 +22,3 @@ export const getFileById = (fileId: string): string => {
     console.log(result);
     return result.href;
 };
-
-
-export { ID } from 'appwrite';

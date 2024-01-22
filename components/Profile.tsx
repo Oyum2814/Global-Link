@@ -4,8 +4,8 @@ import useCurrentUser from "@/hooks/useCurrentUser";
 import useUser from "@/hooks/useUser";
 import toast from "react-hot-toast";
 import axios from "axios";
-import {Storage} from 'appwrite';
-import { account, ID, client } from "@/pages/appwrite";
+import {Storage ,ID} from 'appwrite';
+import { account, client } from "@/pages/appwrite";
 
 const Profile = () => {
     const {data:currentUser} = useCurrentUser();

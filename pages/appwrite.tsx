@@ -22,3 +22,13 @@ export const getFileById = (fileId: string): string => {
     console.log(result);
     return result.href;
 };
+
+
+const appwrite = () => {
+    return (
+      <div>
+      </div>
+    );
+};
+
+export default appwrite;

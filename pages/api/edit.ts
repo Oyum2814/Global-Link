@@ -10,10 +10,10 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse){
     try{
         const {currentUser} = await serverAuth(req, res);
         const {name, username, bio, imageLink} = req.body;
-        if(!name || !username){
-            console.log(name+" "+username);
-            throw new Error('Missing Fields ');
-        }
+        // if(!name || !username){
+        //     console.log(name+" "+username);
+        //     throw new Error('Missing Fields ');
+        // }
         const existingUserData = await prismadb.user.findUnique({
             where: {
               id: currentUser.id,
@@ -28,9 +28,9 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse){
                 id:currentUser.id
             },
             data:{
-                name,
-                username,
-                bio,
+                name:name !== ""?name:existingUserData.name ,
+                username:username !== ""?username:existingUserData.username,
+                bio:bio!==""?bio:existingUserData.bio,
                 image:imageLink !== "" ? imageLink : existingUserData.image,
             }
         });

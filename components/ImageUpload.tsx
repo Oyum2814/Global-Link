@@ -4,6 +4,8 @@ import {useDropzone} from 'react-dropzone'
 import Image from 'next/image'
 import toast from 'react-hot-toast';
 import { getFileById } from '@/pages/appwrite';
+import useCurrentUser from '@/hooks/useCurrentUser';
+import useUser from '@/hooks/useUser';
 
 interface ImageUploadProps{
     onChange:(base64:any)=>void;
@@ -18,7 +20,7 @@ const ImageUpload:React.FC<ImageUploadProps> = ({
     const [base64, setBase64] = useState<File | null>(null);
 
     const [compressedImages, setCompressedImages] = useState<File[]>([]);
-
+    const {mutate:mutateCurrentUser} = useCurrentUser();
     const handleChange = useCallback((base64:string)=>{
         onChange(base64);
     },[onChange]);
@@ -30,12 +32,14 @@ const ImageUpload:React.FC<ImageUploadProps> = ({
         {
             setBase64(file);
             handleChange(file);
+            mutateCurrentUser();
         }
         else if(file.size<5000000000){
             try{
-                const { compressedFile, base64String } = await compressImage(file);
+                // const { compressedFile, base64String } = await compressImage(file);
                 setBase64(file);
                 handleChange(file);
+                mutateCurrentUser();
                 // setBase64(base64String); // Update to base64 string, not object URL
                 // handleChange(base64String);
                 // console.log("Compressed Size : "+compressedFile.size);

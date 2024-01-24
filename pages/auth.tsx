@@ -1,17 +1,16 @@
-import {useState, useCallback} from "react";
+import {useState, useCallback, useEffect} from "react";
 import Input from "../components/Input";
 import axios from 'axios';
-import {signIn} from 'next-auth/react';
-import { FcGoogle } from 'react-icons/fc';
-import {FaGithub} from 'react-icons/fa';
+import {getSession, signIn} from 'next-auth/react';
 import logo from '@/public/assets/logo.png'
 import Image from 'next/image'
+import { useRouter } from "next/router";
 const Auth = ()=>{
 
     const [email, setEmail] = useState('');
     const [username, setUserName] = useState('');
     const [password, setPassword] = useState('');
-
+    const router = useRouter();
     const [variant, setVariant] = useState('login');
 
     const toggleVariant = useCallback(()=>{
@@ -36,8 +35,18 @@ const Auth = ()=>{
         }
     },[email, username, password,login]);
 
-    
-
+    useEffect(() => {
+        
+        // Check if user is already authenticated
+        const checkAuth = async () => {
+          const session = await getSession();
+          if (session) {
+            // If user is authenticated, redirect to home page
+            router.replace("/");
+          }
+        };    
+        checkAuth();
+    }, []);   
     return(
         // <div className="relative h-full w-full bg-white">
         //     <div className="w-full h-full ">

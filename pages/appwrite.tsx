@@ -19,7 +19,6 @@ export const getFileById = (fileId: string): string => {
     //     console.log(error); // Failure
     // });
     const result = storage.getFileView('65aa97745edf2ade19da', fileId);
-    console.log(result);
     return result.href;
 };
 

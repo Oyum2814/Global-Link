@@ -14,7 +14,7 @@ const PostCreate = () => {
             const url = '/api/posts';
 
             await axios.post(url,{body});
-            toast.success('Tweet Created!');
+            toast.success('Post Created!');
             setBody('');
             mutatePosts();
         }

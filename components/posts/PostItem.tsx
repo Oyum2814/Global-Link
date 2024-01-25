@@ -59,7 +59,7 @@ const PostItem:React.FC<PostItemProps> = ({data,userId,showExactTime}) =>  {
                     <h2 className="ml-3 font-sans font-[700]">{data?.user?.username}</h2>
                 </div>
                 {(data?.user?.id==currentUser?.id) && 
-                <div className="flex ">
+                (<div className="flex ">
                     <div 
                     onClick={toggleEdit}
                     className="bg-blue-600 rounded-md text-white px-2 py-1 cursor-pointer">
@@ -71,7 +71,7 @@ const PostItem:React.FC<PostItemProps> = ({data,userId,showExactTime}) =>  {
                         <MdDelete size={30}/>
                     </div>
                 </div>
-                }
+                )}
             </div>
             {isEditing?
             (
@@ -84,7 +84,9 @@ const PostItem:React.FC<PostItemProps> = ({data,userId,showExactTime}) =>  {
                     className="p-2 w-full focus:outline-none focus:border-0 focus:border-b-[2px] border-black">
                         {newBody}
                     </textarea>
-                    <div className="ml-auto bg-green-700 text-white px-4 py-2 rounded-lg text-sm mt-2">
+                    <div
+                    onClick={updatePost}
+                    className="ml-auto bg-green-700 text-white px-4 py-2 rounded-lg text-sm mt-2">
                         Update
                     </div>
                 </div>
